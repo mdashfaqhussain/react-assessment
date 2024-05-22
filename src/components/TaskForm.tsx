@@ -24,9 +24,10 @@ const TaskForm: React.FC<TaskFormProps> = ({ initialTask, onSubmit }) => {
     >
   ) => {
     const { name, value } = e.target;
+
     setFormData((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: name === "dueDate" ? new Date(value) : value,
     }));
   };
 
