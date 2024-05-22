@@ -15,7 +15,12 @@ const TaskItem: React.FC<TaskItemProps> = ({
   onDelete,
 }) => (
   <TaskItemContainer>
-    <TaskName completed={task.status === "Completed"}>{task.name}</TaskName>
+    <TaskDetails>
+      <TaskName completed={task.status === "Completed"}>{task.name}</TaskName>
+      <DueDate>
+        Due Date: {new Date(task.dueDate).toLocaleDateString()}
+      </DueDate>{" "}
+    </TaskDetails>
     <Actions>
       <ActionButton onClick={onMarkComplete}>
         {task.status === "Completed" ? (
@@ -92,6 +97,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
 
 export default TaskItem;
 
+// Styled components
 interface TaskNameProps {
   completed: boolean;
 }
@@ -107,10 +113,20 @@ const TaskItemContainer = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
+const TaskDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const TaskName = styled.p<TaskNameProps>`
   margin: 0;
   color: ${(props) => (props.completed ? "#999" : "#333")};
   text-decoration: ${(props) => (props.completed ? "line-through" : "none")};
+`;
+
+const DueDate = styled.span`
+  color: #666;
+  font-size: 0.9rem;
 `;
 
 const Actions = styled.div`
